@@ -7,16 +7,23 @@ body{
 
 .cell{
     box-sizing: border-box;
-    background-color: rebeccapurple;
     margin: 0;
     border: solid;
-    border-color: yellow;
+    border-color: whitesmoke;
     border-width: 1px;
     padding: 0;
     width: 10px;
     max-width: 10px;
     height: 10px;
     max-height: 10px;
+}
+
+.dead_cell {
+	background-color: antiquewhite;
+}
+
+.alive_cell {
+    background-color: rebeccapurple;
 }
 
 #world_wrapper{
