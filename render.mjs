@@ -112,8 +112,8 @@ class Printer
 let printer = new Printer();
 document.addEventListener("DOMContentLoaded", (event)=>{
     console.log("dom content loadedddddddd")
-//        printer.createWorld();
-//		printer.paintCells(population)
+        printer.createWorld();
+		printer.paintCells(population)
 })
 
 let population = new CellPopulation();
@@ -121,12 +121,30 @@ for (let rw = 0; rw < 500; rw++)
 {
 	for (let cl = 0; cl < 500; cl++)
 	{
-//		population.bringToLife(rw, cl)
+		population.bringToLife(rw, cl)
 	}
 }
 
 window.addEventListener("resize", (event) => {
-    console.log("resized")
- //   printer.createWorld();
-//	printer.paintCells(population)
+	console.log("resized")
+	printer.createWorld();
+	printer.paintCells(population)
 })
+
+function sleep(ms)
+{
+	return new Promise (resolve => setTimeout(resolve, ms));
+}
+
+async function display ()
+{
+	while (true)
+	{
+		console.log("looping")
+		printer.paintCells(population);
+		population = population.nextGeneration();
+		await sleep(1000)
+	}
+}
+
+display();

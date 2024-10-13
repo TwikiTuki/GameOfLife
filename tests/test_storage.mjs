@@ -173,7 +173,7 @@ function generationTests()
 			console.log("OK, expected: ", expected)	
 		else
 			console.log("KO, expected: ", expected)	
-		if (population.nextGeneration().isAlive(cell.getY(), cell.getX()) === expected)
+		if (population.nextGeneration().isAlive(cell.getY(), cell.getX()) == expected)
 			console.log("OK, expected: ", expected)	
 		else
 			console.log("KO, expected: ", expected)	
@@ -261,11 +261,13 @@ function test_cell(row, col, alive)
 
 function tests_cell()
 {
+	console.log("tests_cell")
 	test_cell(93, 85963, true)
 	test_cell(-93, -85963, false)
 }
 
-//CellPoulaionModificationTestsdoTests()
+console.log("wololooo")
+tests_cell();
+CellPoulaionModificationTests()
 generationTests();
-//test_cell();
 
