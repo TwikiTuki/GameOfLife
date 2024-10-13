@@ -1,6 +1,7 @@
 import { Cell, CellPopulation } from "./storage.mjs";// strg from "./storage.js";
 //import * as myModule from "/storage.mjs";
 //import defaultExport from "./storage.mjs"
+let PAUSED=false
 
 export class Point
 {
@@ -141,10 +142,45 @@ async function display ()
 	while (true)
 	{
 		console.log("looping")
+		if (!PAUSED)
+		{
+			population = population.nextGeneration();
+		}
 		printer.paintCells(population);
-		population = population.nextGeneration();
 		await sleep(1000)
 	}
 }
+
+document.querySelector("#world_wrapper").addEventListener("keydown", (envent) => {
+	console.log("key pressed: ", event)
+	if (event.keyCode == 37)
+	{
+		console.log("left")
+		printer.center.x -= 5
+	}
+	else if (event.keyCode == 38)
+	{
+		console.log("upp")
+		printer.center.y -= 5
+	}
+	else if (event.keyCode == 39)
+	{
+		console.log("right")
+		printer.center.x += 5
+	}
+	else if (event.keyCode == 40)
+	{
+		console.log("down")
+		printer.center.y += 5
+	}
+	else if (event.keyCode == 32)
+	{
+		console.log("space")
+		PAUSED = !PAUSED
+	}
+	
+
+
+});
 
 display();
