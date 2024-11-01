@@ -1,3 +1,4 @@
+import { MyTime } from "./MyTime.mjs";// strg from "./storage.js";
 
 export class Cell
 {
@@ -104,6 +105,7 @@ export class CellPopulation
 	{
 		let next_generation = new CellPopulation();
 		
+		MyTime.toCheck.recordStart();
 		Object.values(this.cells).forEach(cell => {
 			if (this.isAlive(cell.row, cell.col))
 			{
@@ -118,10 +120,11 @@ export class CellPopulation
 				}
 			}
 		})
+		MyTime.toCheck.recordEnd();
+		MyTime.nextGenOwn.recordStart();
 		Object.values(next_generation.cells).forEach(cell => {
 			if (this.shouldLive(cell.row, cell.col))
 			{
-				
 				next_generation.bringToLife(cell.row, cell.col);
 			}
 			else
@@ -129,6 +132,7 @@ export class CellPopulation
 				next_generation.kill(cell.row, cell.col);
 			}
 		})
+		MyTime.nextGenOwn.recordEnd();
 		return next_generation
 	}
 }
