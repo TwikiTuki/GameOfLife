@@ -55,6 +55,14 @@ export class CellPopulation
         this.deleteCell(cell)
     }
 
+	switchCellAlive(row, col)
+	{
+		if (this.isAlive(row, col))
+			this.kill(row,col)
+		else
+			this.bringToLife(row, col)
+	}
+
     insertCell (cell)
     {
     //    if (this.cells[[cell.row, cell.col]] != null)
@@ -62,7 +70,7 @@ export class CellPopulation
         this.cells[[cell.row, cell.col]] = cell   
         this.length++
     }
-
+	
     deleteCell(cell)
     {
         if (!this.cells[[cell.row, cell.col]] == null)
