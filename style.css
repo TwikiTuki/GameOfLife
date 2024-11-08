@@ -5,6 +5,63 @@ body{
     height: 100vh;
 }
 
+.tools
+{
+	padding: 10px;
+	border-radius:3px;
+	position:absolute;
+	background-color:rgb(255 255 255 / 50%);
+	top: 5px;	
+	left: 5px;	
+	padding: 10px;
+	width: 350px;
+	opacity: 0%;
+	display: flex;
+}
+
+.tools:hover
+{
+	opacity: 100%;
+}
+
+.tools form
+{
+	display:none;
+}
+
+.tools:hover form
+{
+	display:block;
+}
+
+.tools input, .tools button 
+{
+	background-color:rgb(255 255 255 / 60%);
+	border: none;
+	width: 100px;
+	margin: auto;
+}
+
+.tools button
+{
+	width: auto;
+}
+
+.tools input
+{
+	background-color:rgb(255 255 255 / 60%);
+	border: none;
+	width: 100px;
+	margin: auto;
+}
+
+.tools .submit
+{
+	width: auto;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
 .cell{
     box-sizing: border-box;
     margin: 0;

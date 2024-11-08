@@ -1,3 +1,4 @@
+console.log("time")
 export class MyTimeData
 {
 	constructor(name)

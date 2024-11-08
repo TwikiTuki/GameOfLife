@@ -1,9 +1,9 @@
+console.log("fkkkk u")
 import { Cell, CellPopulation } from "./storage.mjs";// strg from "./storage.js";
 import { MyTime } from "./MyTime.mjs";// strg from "./storage.js";
 //import * as myModule from "/storage.mjs";
 //import defaultExport from "./storage.mjs"
 	let PAUSED=true
-
 function sleep(ms)
 {
 	return new Promise (resolve => setTimeout(resolve, ms));
@@ -43,20 +43,24 @@ class Printer
 		this.population = new CellPopulation() // TODO useless ??? maybe can be deleted
 	}
 
-    createWorld(render)
-    {
-        console.log("Creating world")
-        let world_wrapper = document.querySelector("#world_wrapper")
-        let world = document.querySelector("#world")
-        if (world !== null)
-            world.remove()
-        world = document.createElement("table")
-        world.id = "world"
+	setSize()
+	{
         this.cellsX = world_wrapper.clientWidth / Printer.cellWidth;
         this.cellsY = world_wrapper.clientHeight / Printer.cellHeight;
         this.cellsX = Math.floor(this.cellsX)
         this.cellsY = Math.floor(this.cellsY)
+	}
 
+    createWorld(render)
+    {
+        console.log("Creating world")
+        let world_wrapper = document.querySelector("#world_wrapper")
+        let world = document.querySelector("#world") 
+        if (world !== null)
+            world.remove()
+        world = document.createElement("table")
+        world.id = "world"
+		this.setSize()
         console.log("cellsX", this.cellsX, "cellsY", this.cellsY)
         this.cellsMatrix = []
         for (let rowNum = 0; rowNum < this.cellsY; rowNum++)
@@ -128,12 +132,17 @@ class Render
 {
 	constructor()
 	{
+		console.log("wwolololoo")
 		this.printer = new Printer();
-		console.log("Printer:::::: " , this.printer)
+		this.printer.setSize();
 		this.population = new CellPopulation();
-		for (let rw = 0; rw < 500; rw++)
+		let margin = 10
+		let start = new Point(((0 - this.printer.cellsX / 2)) + margin, Math.floor((0 - this.printer.cellsY / 2)) + margin)
+		let end = new Point(((this.printer.cellsX / 2)) - margin, Math.floor((this.printer.cellsY / 2)) - margin)
+		console.log("start", start,"end",  end)
+		for (let rw = start.y; rw < end.y; rw++)
 		{
-			for (let cl = 0; cl < 500; cl++)
+			for (let cl = start.x; cl < end.x; cl++)
 			{
 				this.population.bringToLife(rw, cl)
 			}
@@ -222,4 +231,5 @@ class Render
 	}
 }
 
+console.log("wuuut")
 let render = new Render()

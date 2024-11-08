@@ -6,7 +6,19 @@
         <script type="module" src="tests/test_storage.mjs"></script>
     </head>
     <body>
-        <div id="world_wrapper" tabindex="0">
+        <div id="world_wrapper" tabindex="0" autofocus>
+			<div class="tools"> 
+				<form>
+					<label> x: </label>
+					<input type="text"> </input>
+					<label> y: </label>
+					<input type="text"> </input>
+					<input class=submit type="submit" value="Go!"> </input>
+				</form>
+				<button>
+					Clear
+				</button>
+			</div>
         </div>
     </body>
 </html>

@@ -1,3 +1,4 @@
+console.log("storage")
 import { MyTime } from "./MyTime.mjs";// strg from "./storage.js";
 
 export class Cell

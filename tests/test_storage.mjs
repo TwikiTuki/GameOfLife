@@ -1,3 +1,4 @@
+console.log("tests");
 import  {CellPopulation, Cell}  from "../storage.mjs"
 import  {Point}  from "../render.mjs"
 //import  {CellPopulation, Cell}  from "../storages.js"
