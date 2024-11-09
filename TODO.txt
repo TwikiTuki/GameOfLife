@@ -1,0 +1,4 @@
+It freezes with too large coordinates
+The arrow still works when introducing text on coordinates
+It wold be nice to show the menu when paused
+

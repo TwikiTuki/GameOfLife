@@ -132,7 +132,7 @@ class Render
 {
 	constructor()
 	{
-		console.log("wwolololoo")
+		console.log("wolololo")
 		this.printer = new Printer();
 		this.printer.setSize();
 		this.population = new CellPopulation();
@@ -185,19 +185,32 @@ class Render
 			console.log("dom content loadedddddddd")
 				this.printer.createWorld(this);
 			this.printer.paintCells(this.population)
-			//display();
-
-			//setInterval(display, 1000);
-			//MyTime.nextGeneration.recordStart()
 			setInterval(Render.nextGeneration, 1000, this);
-			//MyTime.paintCells.recordStart()
 			setInterval(Render.paintCells, 100, this);
+
+			document.querySelector(".tools form").addEventListener("submit", (event) => {
+				event.preventDefault();
+				console.log("Form submited");
+				let x = event.target.querySelector('input[name="x"]').value
+				let y = event.target.querySelector('input[name="y"]').value
+				x = parseInt(x);
+				y = parseInt(y);
+				if (!isNaN(x))
+					this.printer.center.x = x
+				if (!isNaN(y))
+					this.printer.center.y = y
+				console.log("xy", x, y)
+			});
+			document.querySelector(".tools .clear").addEventListener("click", (event) => {
+				console.log("cleaning")
+				this.population = new CellPopulation();
+			});
 		})
 
 		window.addEventListener("resize", (event) => {
 			console.log("resized")
 			this.printer.createWorld(this);
-			this.printer.paintCells(this.population)
+			this.printer.paintCells(this.population);
 		})
 
 		document.querySelector("#world_wrapper").addEventListener("keydown", (envent) => {
