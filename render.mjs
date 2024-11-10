@@ -215,6 +215,8 @@ class Render
 
 		document.querySelector("#world_wrapper").addEventListener("keydown", (envent) => {
 			console.log("key pressed: ", event)
+			if (document.activeElement.id != "world_wrapper")
+				return
 			if (event.keyCode == 37)
 			{
 				console.log("left")
@@ -239,6 +241,16 @@ class Render
 			{
 				console.log("space")
 				PAUSED = !PAUSED
+				let tools = document.querySelector(".tools")
+				if (PAUSED)
+				{
+					tools.classList.add("force_visible")
+				}
+				else
+				{
+					tools.classList.remove("force_visible")
+				}
+					
 			}
 		});
 	}

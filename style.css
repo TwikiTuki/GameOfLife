@@ -19,19 +19,9 @@ body{
 	display: flex;
 }
 
-.tools:hover
+.tools.force_visible, .tools:hover
 {
 	opacity: 100%;
-}
-
-.tools form
-{
-	display:none;
-}
-
-.tools:hover form
-{
-	display:block;
 }
 
 .tools input, .tools button 
@@ -45,14 +35,6 @@ body{
 .tools button
 {
 	width: auto;
-}
-
-.tools input
-{
-	background-color:rgb(255 255 255 / 60%);
-	border: none;
-	width: 100px;
-	margin: auto;
 }
 
 .tools .submit
