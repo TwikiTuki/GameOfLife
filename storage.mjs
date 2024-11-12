@@ -7,12 +7,10 @@ export class Cell
     {
 		if (row == null)
 		{
-			console.log("mdfk has creat una row sense especificar row", row)
 			row = 0;
 		}
 		if (col == null)
 		{
-			console.log("mdfk has creat una row sense especificar col", col)
 			col = 0;
 		}
 
@@ -51,8 +49,7 @@ export class CellPopulation
     {
         if (!this.isAlive(row, col))
             return 
-        let cell = new Cell(row, col)
-		cell.alive = false
+        let cell = new Cell(row, col, false)
         this.deleteCell(cell)
     }
 
@@ -66,8 +63,6 @@ export class CellPopulation
 
     insertCell (cell)
     {
-    //    if (this.cells[[cell.row, cell.col]] != null)
-    //       return 
         this.cells[[cell.row, cell.col]] = cell   
         this.length++
     }
@@ -114,7 +109,6 @@ export class CellPopulation
 	{
 		let next_generation = new CellPopulation();
 		
-		MyTime.toCheck.recordStart();
 		Object.values(this.cells).forEach(cell => {
 			if (this.isAlive(cell.row, cell.col))
 			{
@@ -122,15 +116,13 @@ export class CellPopulation
 				{
 					for (let c = cell.col -1; c <= cell.col + 1; c++)
 					{
-						//let nwcell = this.getCell(r, c) == null ? new Cell(r, c, false) : this.getCell(r, c).clone()
 						let nwcell = new Cell(r, c, false);
 						next_generation.insertCell(nwcell)
 					}
 				}
 			}
 		})
-		MyTime.toCheck.recordEnd();
-		MyTime.nextGenOwn.recordStart();
+
 		Object.values(next_generation.cells).forEach(cell => {
 			if (this.shouldLive(cell.row, cell.col))
 			{
@@ -141,7 +133,6 @@ export class CellPopulation
 				next_generation.kill(cell.row, cell.col);
 			}
 		})
-		MyTime.nextGenOwn.recordEnd();
 		return next_generation
 	}
 }

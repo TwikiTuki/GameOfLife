@@ -1,7 +1,6 @@
 console.log("tests");
 import  {CellPopulation, Cell}  from "../storage.mjs"
 import  {Point}  from "../render.mjs"
-//import  {CellPopulation, Cell}  from "../storages.js"
 console.log("TEST_STORAGE !!!")
 
 function CellPoulaionModificationTests()
@@ -90,8 +89,8 @@ function CellPoulaionModificationTests()
 			let row = coords[i][0]
 			let col = coords[i][1]
 			let cell = info.getCell(row, col)
-			if (cell !== undefined)
-				console.log("KO: Expected cell to be alive " + row + ", " + col)
+			if (cell !== undefined) // TODO could be different from undefinded
+				console.log("KO: Expected cell to be dead " + row + ", " + col)
 			else
 				console.log("OK: " + row + ", " + col)
 		}
@@ -249,8 +248,8 @@ function test_cell(row, col, alive)
 	cell0.row = 93;
 	cell0.col = 8593;
 	cell0.alive = false
-	cell1 = cell0.clone()
-	if (cell1 === cell0
+	cell1 = cell0.clone() // TODO Maybe should not 
+	if (cell1 === cell0 
 		|| cell1.row != cell0.row
 		|| cell1.col != cell0.col
 		|| cell1.alive != cell0.alive
