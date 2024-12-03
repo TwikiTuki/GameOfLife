@@ -1,138 +1,101 @@
-console.log("storage")
-import { MyTime } from "./MyTime.mjs";// strg from "./storage.js";
-
-export class Cell
-{
-    constructor(row, col, alive)
-    {
-		if (row == null)
-		{
-			row = 0;
-		}
-		if (col == null)
-		{
-			col = 0;
-		}
-
-        this.alive = alive === undefined ? true : Boolean(alive)
+console.log("storage");
+export class Cell {
+    constructor(row, col, alive) {
+        if (row == null) {
+            row = 0;
+        }
+        if (col == null) {
+            col = 0;
+        }
+        this.alive = alive === undefined ? true : Boolean(alive);
         this.row = row;
         this.col = col;
     }
-
-	clone()
-	{
-		let cell = new Cell(this.row, this.col, this.alive);
-		return cell
-	}
+    clone() {
+        let cell = new Cell(this.row, this.col, this.alive);
+        return cell;
+    }
 }
-
-export class CellPopulation
-{
-    constructor()
-    {
-        this.cells = {}
-        this.length = 0
+export class CellPopulation {
+    constructor() {
+        this.cells = {};
+        this.length = 0;
     }
-
-    bringToLife(row, col)
-    {
+    bringToLife(row, col) {
         if (this.isAlive(row, col))
-            return 
-
-        let cell = new Cell(row, col, true)
-        this.insertCell(cell)
-
-        return (cell)
+            return;
+        let cell = new Cell(row, col, true);
+        this.insertCell(cell);
+        return (cell);
     }
-
-    kill(row, col)
-    {
+    kill(row, col) {
         if (!this.isAlive(row, col))
-            return 
-        let cell = new Cell(row, col, false)
-        this.deleteCell(cell)
+            return;
+        let cell = new Cell(row, col, false);
+        this.deleteCell(cell);
     }
-
-	switchCellAlive(row, col)
-	{
-		if (this.isAlive(row, col))
-			this.kill(row,col)
-		else
-			this.bringToLife(row, col)
-	}
-
-    insertCell (cell)
-    {
-        this.cells[[cell.row, cell.col]] = cell   
-        this.length++
+    switchCellAlive(row, col) {
+        if (this.isAlive(row, col))
+            this.kill(row, col);
+        else
+            this.bringToLife(row, col);
     }
-	
-    deleteCell(cell)
-    {
+    insertCell(cell) {
+        // @ts-ignore	 //TODO do not ignore
+        this.cells[[cell.row, cell.col]] = cell;
+        this.length++;
+    }
+    deleteCell(cell) {
+        // @ts-ignore	 //TODO do not ignore
         if (!this.cells[[cell.row, cell.col]] == null)
-            return 
-        delete this.cells[[cell.row, cell.col]]
-        this.length--
+            return;
+        // @ts-ignore	 //TODO do not ignore
+        delete this.cells[[cell.row, cell.col]];
+        this.length--;
     }
-
-    getCell(row, col)
-    {
-        return this.cells[[row, col]]
+    getCell(row, col) {
+        // @ts-ignore	 //TODO do not ignore
+        return this.cells[[row, col]];
     }
-
-    isAlive(row, col)
-    {
-        let cell = this.getCell(row, col)
-        return ( cell != null && cell.alive)
+    isAlive(row, col) {
+        let cell = this.getCell(row, col);
+        return (cell != null && cell.alive);
     }
-		
-	shouldLive(row, col)
-	{
-		let count = 0;
-
-		for (let r = -1; r <= 1; r++)
-		{
-			for (let c = -1; c <= 1; c++)
-			{
-				if (r == 0 && c == 0)
-					continue;
-				if (this.isAlive(row + r, col + c))
-				{
-					count++;	
-				}
-			}
-		}
-		return count == 3 || (count == 2 && this.isAlive(row,col))
-	}
-	
-	nextGeneration()
-	{
-		let next_generation = new CellPopulation();
-		
-		Object.values(this.cells).forEach(cell => {
-			if (this.isAlive(cell.row, cell.col))
-			{
-				for (let r = cell.row -1; r <= cell.row +1; r++)
-				{
-					for (let c = cell.col -1; c <= cell.col + 1; c++)
-					{
-						let nwcell = new Cell(r, c, false);
-						next_generation.insertCell(nwcell)
-					}
-				}
-			}
-		})
-
-		Object.values(next_generation.cells).forEach(cell => {
-			if (this.shouldLive(cell.row, cell.col))
-			{
-				next_generation.bringToLife(cell.row, cell.col);
-			}
-			else
-			{
-				next_generation.kill(cell.row, cell.col);
-			}
-		})
-		return next_generation
-	}
+    shouldLive(row, col) {
+        let count = 0;
+        for (let r = -1; r <= 1; r++) {
+            for (let c = -1; c <= 1; c++) {
+                if (r == 0 && c == 0)
+                    continue;
+                if (this.isAlive(row + r, col + c)) {
+                    count++;
+                }
+            }
+        }
+        return count == 3 || (count == 2 && this.isAlive(row, col));
+    }
+    nextGeneration() {
+        let next_generation = new CellPopulation();
+        // @ts-ignore	 //TODO do not ignore
+        Object.values(this.cells).forEach(cell => {
+            if (this.isAlive(cell.row, cell.col)) {
+                for (let r = cell.row - 1; r <= cell.row + 1; r++) {
+                    for (let c = cell.col - 1; c <= cell.col + 1; c++) {
+                        let nwcell = new Cell(r, c, false);
+                        next_generation.insertCell(nwcell);
+                    }
+                }
+            }
+        });
+        // @ts-ignore //TODO do not ignore	
+        Object.values(next_generation.cells).forEach(cell => {
+            if (this.shouldLive(cell.row, cell.col)) {
+                next_generation.bringToLife(cell.row, cell.col);
+            }
+            else {
+                next_generation.kill(cell.row, cell.col);
+            }
+        });
+        return next_generation;
+    }
 }

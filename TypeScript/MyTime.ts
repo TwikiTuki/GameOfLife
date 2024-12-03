@@ -1,6 +1,14 @@
 console.log("time")
 export class MyTimeData
 {
+	MAX:number;
+	i:number;
+	name:string;
+	start:number; //TODO create timestamp
+	end:number //TODO create timestamp
+	diff:number //TODO create timestamp
+	history:{[key:number]:number} //TODO create timestamp
+	avrg:number
 	constructor(name)
 	{
 		this.MAX = 10
