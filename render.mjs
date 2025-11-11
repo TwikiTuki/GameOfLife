@@ -6,14 +6,14 @@ export class Point
 {
 	constructor(x, y)
 	{
-		this.x = x
-		this.y = y
+		this.x = Math.trunc(x)
+		this.y = Math.trunc(y)
 	}
 		
 	getX () { return this.x }
 	getY () { return this.y }
-	setX () { return this.x }
-	setY () { return this.y }
+	setX (val) { this.x = val }
+	setY (val) { this.y = val }
 }
 
 class Printer
@@ -108,6 +108,8 @@ class Printer
 	
 	paintCells(population)
 	{
+		console.log(":::::: PAINTING CELLS ::::::::")
+		console.log("population: ", population)
         let world_wrapper = document.querySelector("#world_wrapper")
 		world_wrapper.display="hidden"
 		let row_start = this.center.getY() - Math.floor(this.height / 2)
@@ -135,20 +137,32 @@ class Render
 {
 	constructor()
 	{
+		console.log("Calling render constructor")
 		this.printer = new Printer();
 		this.printer.setSize();
 		this.population = new CellPopulation();
 		let margin = 10
+
+		console.log("    Calculating start")
 		let start = new Point(((0 - this.printer.width / 2)) + margin, Math.floor((0 - this.printer.height / 2)) + margin)
+		console.log("    Calculating end")
 		let end = new Point(((this.printer.width / 2)) - margin, Math.floor((this.printer.height / 2)) - margin)
+		console.log("    Create life looop")
+		var count = 0;
 		for (let rw = start.y; rw < end.y; rw++)
 		{
 			for (let cl = start.x; cl < end.x; cl++)
 			{
+				count++
 				this.population.bringToLife(rw, cl)
 			}
 		}
+		console.log("    Created life " + count);
+		console.log(this.population.cells)
+		setInterval(Render.paintCells, 100, this);
+		console.log("    Calling this.events")
 		this.events();
+		console.log("    End of constructor")
 	}
 	
 	getPopulation()
@@ -178,20 +192,20 @@ class Render
 			setInterval(Render.nextGeneration, 1000, this);
 			setInterval(Render.paintCells, 100, this);
 
-			document.querySelector(".tools form").addEventListener("submit", (event) => {
-				event.preventDefault();
-				let x = event.target.querySelector('input[name="x"]').value
-				let y = event.target.querySelector('input[name="y"]').value
-				x = parseInt(x);
-				y = parseInt(y);
-				if (!isNaN(x))
-					this.printer.center.x = x
-				if (!isNaN(y))
-					this.printer.center.y = y
-			});
-			document.querySelector(".tools .clear").addEventListener("click", (event) => {
-				this.population = new CellPopulation();
-			});
+			// document.querySelector(".tools form").addEventListener("submit", (event) => {
+			// 	event.preventDefault();
+			// 	let x = event.target.querySelector('input[name="x"]').value
+			// 	let y = event.target.querySelector('input[name="y"]').value
+			// 	x = parseInt(x);
+			// 	y = parseInt(y);
+			// 	if (!isNaN(x))
+			// 		this.printer.center.x = x
+			// 	if (!isNaN(y))
+			// 		this.printer.center.y = y
+			// });
+			// document.querySelector(".tools .clear").addEventListener("click", (event) => {
+			// 	this.population = new CellPopulation();
+			// });
 		})
 
 		window.addEventListener("resize", (event) => {
@@ -199,7 +213,7 @@ class Render
 			this.printer.paintCells(this.population);
 		})
 
-		document.querySelector("#world_wrapper").addEventListener("keydown", (envent) => {
+		document.querySelector("#world_wrapper").addEventListener("keydown", (event) => {
 			if (document.activeElement.id != "world_wrapper")
 				return
 			if (event.keyCode == 37)
