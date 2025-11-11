@@ -108,8 +108,6 @@ class Printer
 	
 	paintCells(population)
 	{
-		console.log(":::::: PAINTING CELLS ::::::::")
-		console.log("population: ", population)
         let world_wrapper = document.querySelector("#world_wrapper")
 		world_wrapper.display="hidden"
 		let row_start = this.center.getY() - Math.floor(this.height / 2)
@@ -137,17 +135,13 @@ class Render
 {
 	constructor()
 	{
-		console.log("Calling render constructor")
 		this.printer = new Printer();
 		this.printer.setSize();
 		this.population = new CellPopulation();
 		let margin = 10
 
-		console.log("    Calculating start")
 		let start = new Point(((0 - this.printer.width / 2)) + margin, Math.floor((0 - this.printer.height / 2)) + margin)
-		console.log("    Calculating end")
 		let end = new Point(((this.printer.width / 2)) - margin, Math.floor((this.printer.height / 2)) - margin)
-		console.log("    Create life looop")
 		var count = 0;
 		for (let rw = start.y; rw < end.y; rw++)
 		{
@@ -157,12 +151,8 @@ class Render
 				this.population.bringToLife(rw, cl)
 			}
 		}
-		console.log("    Created life " + count);
-		console.log(this.population.cells)
 		setInterval(Render.paintCells, 100, this);
-		console.log("    Calling this.events")
 		this.events();
-		console.log("    End of constructor")
 	}
 	
 	getPopulation()
